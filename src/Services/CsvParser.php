@@ -9,13 +9,20 @@
 namespace App\Services;
 
 
-class UserParser
+class CsvParser
 {
-    public function parse()
+    public function parse( string $filename):array
     {
-        $data = [];
-        foreach ($csvFile as $line) {
-            $data[] = str_getcsv($line);
+        $result = [];
+
+        if (($h = fopen("{$filename}", "r")) !== FALSE)
+        {
+            while (($data = fgetcsv($h, 1000, ",")) !== FALSE)
+            {
+                $result[] = $data;
+            }
+            fclose($h);
         }
+        return $result;
     }
 }

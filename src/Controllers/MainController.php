@@ -9,7 +9,17 @@
 namespace App\Controllers;
 
 
-class MainContoller
-{
+use App\Services\CsvParser;
 
+class MainController
+{
+    public function __construct()
+    {
+        $this->parser = new CsvParser();
+    }
+
+    public function index($file)
+    {
+       $data =  $this->parser->parse($file);
+    }
 }
